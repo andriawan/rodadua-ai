@@ -1,0 +1,49 @@
+# Backend (Laravel)
+backend/vendor/
+backend/.env
+backend/.env.local
+backend/.env.*.local
+backend/storage/logs/
+backend/storage/framework/cache/
+backend/storage/framework/sessions/
+backend/storage/framework/views/
+backend/bootstrap/cache/
+backend/node_modules/
+backend/npm-debug.log
+backend/yarn-error.log
+backend/.phpunit.result.cache
+backend/database/database.sqlite
+
+# Frontend (Vue)
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+frontend/npm-debug.log
+frontend/yarn-error.log
+frontend/.DS_Store
+
+# IDE
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+
+# Cache
+.cache/
