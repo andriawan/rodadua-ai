@@ -67,6 +67,13 @@ class ApiClient {
     const response = await this.instance.patch<ApiResponse<T>>(url, data, config)
     return response.data
   }
+
+  getAxiosInstance() {
+    return this.instance
+  }
 }
 
-export default new ApiClient()
+const apiClient = new ApiClient()
+
+export { apiClient }
+export default apiClient
