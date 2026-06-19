@@ -1,79 +1,85 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import type { ApiResponse } from '../types/api'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
 
-interface ApiResponse<T = any> {
-  success: boolean
-  data?: T
-  message?: string
-  errors?: Record<string, string[]>
-}
-
 class ApiClient {
-  private instance: AxiosInstance
+  private token: string | null = null
 
   constructor() {
-    this.instance = axios.create({
-      baseURL: API_BASE_URL,
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-    })
+    this.token = localStorage.getItem('auth_token')
+  }
 
-    // Add token to requests if available
-    this.instance.interceptors.request.use((config) => {
-      const token = localStorage.getItem('auth_token')
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`
+  setToken(token: string) {
+    this.token = token
+    localStorage.setItem('auth_token', token)
+  }
+
+  clearToken() {
+    this.token = null
+    localStorage.removeItem('auth_token')
+  }
+
+  private getHeaders(): Record<string, string> {
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    }
+    if (this.token) {
+      headers['Authorization'] = `Bearer ${this.token}`
+    }
+    return headers
+  }
+
+  async request<T>(
+    method: string,
+    endpoint: string,
+    data?: unknown,
+  ): Promise<ApiResponse<T>> {
+    const url = `${API_BASE_URL}${endpoint}`
+    const options: RequestInit = {
+      method,
+      headers: this.getHeaders(),
+    }
+
+    if (data && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
+      options.body = JSON.stringify(data)
+    }
+
+    try {
+      const response = await fetch(url, options)
+      
+      if (response.status === 401) {
+        this.clearToken()
+        window.location.href = '/login'
       }
-      return config
-    })
 
-    // Handle responses
-    this.instance.interceptors.response.use(
-      (response) => response,
-      (error) => {
-        if (error.response?.status === 401) {
-          localStorage.removeItem('auth_token')
-          window.location.href = '/login'
-        }
-        return Promise.reject(error)
-      }
-    )
+      const json = await response.json()
+      return json as ApiResponse<T>
+    } catch (error) {
+      console.error('API request failed:', error)
+      throw error
+    }
   }
 
-  async get<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    const response = await this.instance.get<ApiResponse<T>>(url, config)
-    return response.data
+  get<T>(endpoint: string) {
+    return this.request<T>('GET', endpoint)
   }
 
-  async post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    const response = await this.instance.post<ApiResponse<T>>(url, data, config)
-    return response.data
+  post<T>(endpoint: string, data?: unknown) {
+    return this.request<T>('POST', endpoint, data)
   }
 
-  async put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    const response = await this.instance.put<ApiResponse<T>>(url, data, config)
-    return response.data
+  put<T>(endpoint: string, data?: unknown) {
+    return this.request<T>('PUT', endpoint, data)
   }
 
-  async delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    const response = await this.instance.delete<ApiResponse<T>>(url, config)
-    return response.data
+  patch<T>(endpoint: string, data?: unknown) {
+    return this.request<T>('PATCH', endpoint, data)
   }
 
-  async patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    const response = await this.instance.patch<ApiResponse<T>>(url, data, config)
-    return response.data
-  }
-
-  getAxiosInstance() {
-    return this.instance
+  delete<T>(endpoint: string) {
+    return this.request<T>('DELETE', endpoint)
   }
 }
 
-const apiClient = new ApiClient()
-
-export { apiClient }
-export default apiClient
+export default new ApiClient()
