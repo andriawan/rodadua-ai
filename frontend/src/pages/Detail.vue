@@ -1,28 +1,31 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useMotorcycle } from '../composables/useMotorcycle'
 import { useMaintenance } from '../composables/useMaintenance'
 import LoadingSpinner from '../components/LoadingSpinner.vue'
 import ErrorAlert from '../components/ErrorAlert.vue'
 import BaseCard from '../components/BaseCard.vue'
+import MaintenanceCard from '../components/MaintenanceCard.vue'
 import RecommendationList from '../components/RecommendationList.vue'
 
 const route = useRoute()
+const router = useRouter()
 const motorcycleId = Number(route.params.id)
 
 const { currentMotorcycle, loading, error, fetchById } = useMotorcycle()
-const { recommendations, loading: recsLoading, fetchRecommendations } = useMaintenance()
+const { maintenance, recommendations, loading: recsLoading, fetchForMotorcycle, fetchRecommendations } = useMaintenance()
 
 onMounted(async () => {
   if (motorcycleId) {
     await fetchById(motorcycleId)
+    await fetchForMotorcycle(motorcycleId)
     await fetchRecommendations(motorcycleId)
   }
 })
 
 function goBack() {
-  window.location.href = '/motorcycles'
+  router.push('/motorcycles')
 }
 </script>
 
@@ -59,7 +62,7 @@ function goBack() {
               <button
                 type="button"
                 class="px-3.5 py-1.5 border border-neutral-300 rounded text-xs font-bold text-neutral-700 bg-white hover:bg-neutral-50"
-                @click="window.location.href = `/motorcycles/${currentMotorcycle.id}/edit`"
+                @click="router.push(`/motorcycles/${currentMotorcycle.id}/edit`)"
               >
                 Edit Spesifikasi
               </button>
@@ -124,14 +127,21 @@ function goBack() {
             <button
               type="button"
               class="text-xs font-bold text-primary-600 hover:underline"
-              @click="window.location.href = `/maintenance?motorcycle=${currentMotorcycle.id}`"
+              @click="router.push(`/maintenance?motorcycle=${currentMotorcycle.id}`)"
             >
               Lihat Histori Lengkap
             </button>
           </div>
           
-          <div class="text-center py-6 bg-white border border-neutral-200 rounded-lg text-neutral-500 text-xs font-medium">
+          <div v-if="maintenance.length === 0" class="text-center py-6 bg-white border border-neutral-200 rounded-lg text-neutral-500 text-xs font-medium">
             Tidak ada catatan servis baru-baru ini.
+          </div>
+          <div v-else class="flex flex-col gap-3">
+            <MaintenanceCard
+              v-for="record in maintenance.slice(0, 3)"
+              :key="record.id"
+              :record="record"
+            />
           </div>
         </div>
       </div>

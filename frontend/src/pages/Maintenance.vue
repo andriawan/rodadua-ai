@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useMotorcycle } from '../composables/useMotorcycle'
 import { useMaintenance } from '../composables/useMaintenance'
 import LoadingSpinner from '../components/LoadingSpinner.vue'
@@ -8,6 +8,7 @@ import ErrorAlert from '../components/ErrorAlert.vue'
 import MaintenanceCard from '../components/MaintenanceCard.vue'
 
 const route = useRoute()
+const router = useRouter()
 const selectedMotorcycleId = ref<number | null>(null)
 
 const { motorcycles, fetchAll } = useMotorcycle()
@@ -67,7 +68,7 @@ watch(selectedMotorcycleId, async (newVal) => {
         <button
           type="button"
           class="px-3.5 py-1.5 bg-primary-500 hover:bg-primary-600 text-white text-xs font-bold rounded-lg transition-colors"
-          @click="window.location.href = `/maintenance/add?motorcycle=${selectedMotorcycleId}`"
+          @click="router.push(`/maintenance/add?motorcycle=${selectedMotorcycleId}`)"
         >
           + Tambah Catatan Servis
         </button>

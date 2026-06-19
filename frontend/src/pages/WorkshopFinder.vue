@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useWorkshop } from '../composables/useWorkshop'
+import type { Workshop } from '../types/workshop'
 import LoadingSpinner from '../components/LoadingSpinner.vue'
 import ErrorAlert from '../components/ErrorAlert.vue'
 import WorkshopCard from '../components/WorkshopCard.vue'
@@ -36,7 +37,7 @@ async function handleSearch() {
   })
 }
 
-function handleWorkshopContact(ws: any) {
+function handleWorkshopContact(ws: Workshop) {
   alert(`Hubungi ${ws.name}:\nTelepon: ${ws.phone}\nEmail: ${ws.email}`)
 }
 </script>

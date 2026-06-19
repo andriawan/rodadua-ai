@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { onMounted, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useAuth } from '../composables/useAuth'
 import { useMotorcycle } from '../composables/useMotorcycle'
+import type { Motorcycle } from '../types/motorcycle'
 import BaseCard from '../components/BaseCard.vue'
 import LoadingSpinner from '../components/LoadingSpinner.vue'
 import MotorcycleCard from '../components/MotorcycleCard.vue'
 
+const router = useRouter()
 const { user } = useAuth()
 const { motorcycles, loading, fetchAll, toggleFavorite } = useMotorcycle()
 
@@ -21,12 +24,12 @@ const totalKm = computed(() => {
   return motorcycles.value.reduce((sum, m) => sum + m.odometer_km, 0)
 })
 
-function handleMotorcycleClick(moto: any) {
-  window.location.href = `/motorcycles/${moto.id}`
+function handleMotorcycleClick(moto: Motorcycle) {
+  router.push(`/motorcycles/${moto.id}`)
 }
 
-function handleEdit(moto: any) {
-  window.location.href = `/motorcycles/${moto.id}/edit`
+function handleEdit(moto: Motorcycle) {
+  router.push(`/motorcycles/${moto.id}/edit`)
 }
 </script>
 
@@ -47,7 +50,7 @@ function handleEdit(moto: any) {
         <button
           type="button"
           class="px-5 py-2.5 bg-white text-primary-600 hover:bg-neutral-50 active:scale-95 font-bold rounded-lg text-sm transition-all shadow-sm"
-          @click="window.location.href = '/motorcycles/add'"
+          @click="router.push('/motorcycles/add')"
         >
           + Tambah Motor
         </button>
@@ -91,9 +94,9 @@ function handleEdit(moto: any) {
     <div>
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl font-bold text-neutral-900">Motor Garasi Anda</h2>
-        <a href="/motorcycles" class="text-sm font-semibold text-primary-600 hover:text-primary-700 hover:underline">
+        <router-link to="/motorcycles" class="text-sm font-semibold text-primary-600 hover:text-primary-700 hover:underline">
           Lihat Semua
-        </a>
+        </router-link>
       </div>
 
       <LoadingSpinner v-if="loading" label="Memuat garasi motor..." />
@@ -107,7 +110,7 @@ function handleEdit(moto: any) {
         <button
           type="button"
           class="mt-4 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-md text-xs transition-colors"
-          @click="window.location.href = '/motorcycles/add'"
+          @click="router.push('/motorcycles/add')"
         >
           Tambah Sekarang
         </button>

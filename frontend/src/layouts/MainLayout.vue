@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { useAuth } from '../composables/useAuth'
 
+const router = useRouter()
 const { user, logout } = useAuth()
 const isMobileMenuOpen = ref(false)
 
@@ -15,7 +17,7 @@ const navigation = [
 
 async function handleLogout() {
   await logout()
-  window.location.href = '/login'
+  router.push('/login')
 }
 </script>
 
@@ -27,7 +29,7 @@ async function handleLogout() {
         <div class="flex justify-between h-16">
           <div class="flex">
             <!-- Brand Logo -->
-            <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" @click="window.location.href = '/'">
+            <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" @click="router.push('/')">
               <span class="text-2xl">🏍️</span>
               <span class="text-xl font-bold text-neutral-900 tracking-tight">
                 Rodadua<span class="text-primary-500">AI</span>

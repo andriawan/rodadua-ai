@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { onMounted, ref, reactive } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useMotorcycle } from '../composables/useMotorcycle'
 import { useTroubleshooting } from '../composables/useTroubleshooting'
+import type { TroubleshootingEntry } from '../types/troubleshooting'
 import LoadingSpinner from '../components/LoadingSpinner.vue'
 import ErrorAlert from '../components/ErrorAlert.vue'
 import BaseCard from '../components/BaseCard.vue'
 import BaseButton from '../components/BaseButton.vue'
-import BaseInput from '../components/BaseInput.vue'
 
 const { motorcycles, fetchAll } = useMotorcycle()
 const { analyze, analyzing, error } = useTroubleshooting()
@@ -14,7 +14,7 @@ const { analyze, analyzing, error } = useTroubleshooting()
 const selectedMotorcycleId = ref<number | null>(null)
 const symptom = ref('')
 const problemDescription = ref('')
-const analysisResult = ref<any>(null)
+const analysisResult = ref<TroubleshootingEntry | null>(null)
 
 onMounted(async () => {
   await fetchAll()

@@ -42,14 +42,29 @@ const routes: RouteRecordRaw[] = [
         component: () => import('../pages/List.vue'),
       },
       {
+        path: 'motorcycles/add',
+        name: 'motorcycle-add',
+        component: () => import('../pages/MotorcycleAdd.vue'),
+      },
+      {
         path: 'motorcycles/:id',
         name: 'motorcycle-detail',
         component: () => import('../pages/Detail.vue'),
       },
       {
+        path: 'motorcycles/:id/edit',
+        name: 'motorcycle-edit',
+        component: () => import('../pages/MotorcycleEdit.vue'),
+      },
+      {
         path: 'maintenance',
         name: 'maintenance',
         component: () => import('../pages/Maintenance.vue'),
+      },
+      {
+        path: 'maintenance/add',
+        name: 'maintenance-add',
+        component: () => import('../pages/MaintenanceAdd.vue'),
       },
       {
         path: 'troubleshooting',

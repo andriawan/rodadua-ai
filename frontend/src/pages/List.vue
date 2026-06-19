@@ -1,22 +1,25 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { useMotorcycle } from '../composables/useMotorcycle'
+import type { Motorcycle } from '../types/motorcycle'
 import MotorcycleCard from '../components/MotorcycleCard.vue'
 import LoadingSpinner from '../components/LoadingSpinner.vue'
 import ErrorAlert from '../components/ErrorAlert.vue'
 
+const router = useRouter()
 const { motorcycles, loading, error, fetchAll, toggleFavorite } = useMotorcycle()
 
 onMounted(async () => {
   await fetchAll()
 })
 
-function handleCardClick(moto: any) {
-  window.location.href = `/motorcycles/${moto.id}`
+function handleCardClick(moto: Motorcycle) {
+  router.push(`/motorcycles/${moto.id}`)
 }
 
-function handleEdit(moto: any) {
-  window.location.href = `/motorcycles/${moto.id}/edit`
+function handleEdit(moto: Motorcycle) {
+  router.push(`/motorcycles/${moto.id}/edit`)
 }
 </script>
 
@@ -30,7 +33,7 @@ function handleEdit(moto: any) {
       <button
         type="button"
         class="px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white text-xs font-bold rounded-lg transition-colors shadow-sm"
-        @click="window.location.href = '/motorcycles/add'"
+        @click="router.push('/motorcycles/add')"
       >
         + Motor Baru
       </button>
@@ -49,7 +52,7 @@ function handleEdit(moto: any) {
       <button
         type="button"
         class="mt-5 px-4.5 py-2 bg-primary-500 hover:bg-primary-600 text-white font-bold rounded-md text-xs transition-colors"
-        @click="window.location.href = '/motorcycles/add'"
+        @click="router.push('/motorcycles/add')"
       >
         Tambah Motor Baru
       </button>

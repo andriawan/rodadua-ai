@@ -1,9 +1,12 @@
+import { storeToRefs } from 'pinia'
 import { useMotorcycleStore } from '../stores/motorcycleStore'
 import { useUiStore } from '../stores/uiStore'
 
 export function useMotorcycle() {
   const motorcycleStore = useMotorcycleStore()
   const uiStore = useUiStore()
+
+  const { motorcycles, currentMotorcycle, loading, error, pagination } = storeToRefs(motorcycleStore)
 
   async function fetchAll(page = 1) {
     await motorcycleStore.fetchAll(page)
@@ -50,11 +53,11 @@ export function useMotorcycle() {
   }
 
   return {
-    motorcycles: motorcycleStore.motorcycles,
-    currentMotorcycle: motorcycleStore.currentMotorcycle,
-    loading: motorcycleStore.loading,
-    error: motorcycleStore.error,
-    pagination: motorcycleStore.pagination,
+    motorcycles,
+    currentMotorcycle,
+    loading,
+    error,
+    pagination,
     fetchAll,
     fetchById,
     create,
