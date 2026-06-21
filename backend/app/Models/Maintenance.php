@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use Database\Factories\MaintenanceFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Maintenance extends Model
 {
-    use SoftDeletes;
+    /** @use HasFactory<MaintenanceFactory> */
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'motorcycle_id',

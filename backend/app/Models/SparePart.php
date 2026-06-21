@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Database\Factories\SparePartFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SparePart extends Model
 {
-    use SoftDeletes;
+    /** @use HasFactory<SparePartFactory> */
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',

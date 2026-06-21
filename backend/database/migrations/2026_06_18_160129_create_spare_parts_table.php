@@ -8,6 +8,9 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * Dependencies: none (standalone table, no FKs).
+     * Reversed by: 2026_06_18_160129 (drop).
      */
     public function up(): void
     {

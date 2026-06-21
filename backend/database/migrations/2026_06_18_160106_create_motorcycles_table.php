@@ -8,6 +8,9 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * Dependencies: 0001_01_01_000000_create_users_table.php (FK: user_id).
+     * Reversed by: 2026_06_18_160106 (drop).
      */
     public function up(): void
     {

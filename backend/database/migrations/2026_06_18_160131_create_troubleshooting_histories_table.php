@@ -8,6 +8,10 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * Dependencies: 2026_06_18_160106_create_motorcycles_table.php (FK: motorcycle_id),
+     *               0001_01_01_000000_create_users_table.php (FK: user_id).
+     * Reversed by: 2026_06_18_160131 (drop).
      */
     public function up(): void
     {
@@ -18,7 +22,7 @@ return new class extends Migration
             
             // Problem Details
             $table->text('problem_description');
-            $table->string('symptom');
+            $table->text('symptom');
             $table->text('ai_analysis')->nullable(); // AI generated analysis
             $table->json('suggested_solutions')->nullable(); // Array of solutions
             

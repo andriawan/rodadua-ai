@@ -8,6 +8,9 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * Dependencies: none (standalone table, no FKs).
+     * Reversed by: 2026_06_18_160127 (drop).
      */
     public function up(): void
     {
@@ -26,8 +29,8 @@ return new class extends Migration
             $table->string('city');
             $table->string('province');
             $table->string('postal_code')->nullable();
-            $table->decimal('latitude', 10, 8)->nullable();
-            $table->decimal('longitude', 10, 8)->nullable();
+            $table->decimal('latitude', 11, 8)->nullable();
+            $table->decimal('longitude', 11, 8)->nullable();
             
             // Ratings & Reviews
             $table->decimal('rating', 3, 2)->default(0);

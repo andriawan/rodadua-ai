@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use Database\Factories\TroubleshootingHistoryFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TroubleshootingHistory extends Model
 {
-    use SoftDeletes;
+    /** @use HasFactory<TroubleshootingHistoryFactory> */
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'motorcycle_id',

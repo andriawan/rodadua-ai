@@ -26,8 +26,8 @@ class MotorcycleResource extends JsonResource
             'notes' => $this->notes,
             'status' => $this->status,
             'is_favorite' => $this->is_favorite,
-            'maintenances_count' => $this->maintenances_count ?? $this->maintenances->count(),
-            'troubleshooting_count' => $this->troubleshooting_histories_count ?? $this->troubleshootingHistories->count(),
+            'maintenances_count' => $this->maintenances_count ?? 0,
+            'troubleshooting_count' => $this->troubleshooting_histories_count ?? 0,
             'created_at' => $this->created_at?->toIso8601String(),
             'updated_at' => $this->updated_at?->toIso8601String(),
         ];

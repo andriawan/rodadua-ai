@@ -8,6 +8,9 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * Dependencies: none (Sanctum standalone table).
+     * Reversed by: 2026_06_18_155151 (drop).
      */
     public function up(): void
     {

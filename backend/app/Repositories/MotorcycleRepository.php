@@ -43,6 +43,11 @@ class MotorcycleRepository
 
     /**
      * Get motorcycle by ID with all relationships
+     *
+     * Uses with() to eagerly load full relationship collections
+     * for the detail view where all data is needed.
+     * Uses loadMissing semantics via fresh query to guarantee
+     * all relations are present.
      */
     public function getByIdWithRelations(int $id): ?Motorcycle
     {
@@ -50,7 +55,9 @@ class MotorcycleRepository
             'user',
             'maintenances' => fn ($q) => $q->latest(),
             'troubleshootingHistories' => fn ($q) => $q->latest(),
-        ])->find($id);
+        ])
+        ->withCount(['maintenances', 'troubleshootingHistories'])
+        ->find($id);
     }
 
     /**
@@ -60,7 +67,7 @@ class MotorcycleRepository
     {
         return Motorcycle::where('user_id', $userId)
             ->where('is_favorite', true)
-            ->with(['maintenances'])
+            ->withCount(['maintenances', 'troubleshootingHistories'])
             ->get()
             ->toArray();
     }

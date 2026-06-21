@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Database\Factories\WorkshopFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Workshop extends Model
 {
-    use SoftDeletes;
+    /** @use HasFactory<WorkshopFactory> */
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -34,6 +37,7 @@ class Workshop extends Model
         'latitude' => 'decimal:8',
         'longitude' => 'decimal:8',
         'is_open_weekends' => 'boolean',
+        'services_offered' => 'json',
     ];
 
     // Scopes
