@@ -4,9 +4,15 @@ namespace App\Repositories;
 
 use App\Models\Workshop;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Cache;
 
 class WorkshopRepository
 {
+    private function cacheKey(string $key): string
+    {
+        return "workshop:{$key}";
+    }
+
     /**
      * Get all workshops with filters
      */
@@ -42,7 +48,9 @@ class WorkshopRepository
      */
     public function getById(int $id): ?Workshop
     {
-        return Workshop::find($id);
+        return Cache::remember($this->cacheKey("detail:{$id}"), 600, function () use ($id) {
+            return Workshop::find($id);
+        });
     }
 
     /**
@@ -50,11 +58,15 @@ class WorkshopRepository
      */
     public function getNearby(float $latitude, float $longitude, int $radiusKm = 10, int $limit = 15): array
     {
-        return Workshop::nearBy($latitude, $longitude, $radiusKm)
-            ->highRated()
-            ->limit($limit)
-            ->get()
-            ->toArray();
+        $key = $this->cacheKey("nearby:{$latitude}:{$longitude}:{$radiusKm}");
+
+        return Cache::remember($key, 300, function () use ($latitude, $longitude, $radiusKm, $limit) {
+            return Workshop::nearBy($latitude, $longitude, $radiusKm)
+                ->highRated()
+                ->limit($limit)
+                ->get()
+                ->toArray();
+        });
     }
 
     /**
@@ -62,10 +74,12 @@ class WorkshopRepository
      */
     public function getHighRated(int $limit = 10): array
     {
-        return Workshop::highRated()
-            ->limit($limit)
-            ->get()
-            ->toArray();
+        return Cache::remember($this->cacheKey('high_rated'), 3600, function () use ($limit) {
+            return Workshop::highRated()
+                ->limit($limit)
+                ->get()
+                ->toArray();
+        });
     }
 
     /**
@@ -73,11 +87,13 @@ class WorkshopRepository
      */
     public function getByCity(string $city, int $limit = 20): array
     {
-        return Workshop::inCity($city)
-            ->highRated()
-            ->limit($limit)
-            ->get()
-            ->toArray();
+        return Cache::remember($this->cacheKey("city:{$city}"), 3600, function () use ($city, $limit) {
+            return Workshop::inCity($city)
+                ->highRated()
+                ->limit($limit)
+                ->get()
+                ->toArray();
+        });
     }
 
     /**
@@ -85,6 +101,8 @@ class WorkshopRepository
      */
     public function create(array $data): Workshop
     {
+        $this->clearCache();
+
         return Workshop::create($data);
     }
 
@@ -94,6 +112,8 @@ class WorkshopRepository
     public function update(Workshop $workshop, array $data): Workshop
     {
         $workshop->update($data);
+        $this->clearCache();
+
         return $workshop;
     }
 
@@ -106,6 +126,17 @@ class WorkshopRepository
             'rating' => $rating,
             'total_reviews' => $totalReviews,
         ]);
+        $this->clearCache();
+
         return $workshop;
+    }
+
+    /**
+     * Clear workshop cache
+     */
+    private function clearCache(): void
+    {
+        Cache::forget($this->cacheKey('high_rated'));
+        // City cache keys use content-addressed keys; TTL-based expiry handles them.
     }
 }

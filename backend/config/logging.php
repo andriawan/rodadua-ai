@@ -123,6 +123,8 @@ return [
             'handler' => NullHandler::class,
         ],
 
+
+
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],

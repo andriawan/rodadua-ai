@@ -4,9 +4,15 @@ namespace App\Repositories;
 
 use App\Models\Motorcycle;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Cache;
 
 class MotorcycleRepository
 {
+    private function cacheKey(string $key): string
+    {
+        return "motorcycle:{$key}";
+    }
+
     /**
      * Get all motorcycles for a user with eager loaded relationships
      */
@@ -16,7 +22,6 @@ class MotorcycleRepository
             ->with(['maintenances', 'troubleshootingHistories'])
             ->where('user_id', $userId);
 
-        // Apply filters
         if (isset($filters['status']) && $filters['status'] !== 'all') {
             $query->where('status', $filters['status']);
         }
@@ -43,21 +48,18 @@ class MotorcycleRepository
 
     /**
      * Get motorcycle by ID with all relationships
-     *
-     * Uses with() to eagerly load full relationship collections
-     * for the detail view where all data is needed.
-     * Uses loadMissing semantics via fresh query to guarantee
-     * all relations are present.
      */
     public function getByIdWithRelations(int $id): ?Motorcycle
     {
-        return Motorcycle::with([
-            'user',
-            'maintenances' => fn ($q) => $q->latest(),
-            'troubleshootingHistories' => fn ($q) => $q->latest(),
-        ])
-        ->withCount(['maintenances', 'troubleshootingHistories'])
-        ->find($id);
+        return Cache::remember($this->cacheKey("detail:{$id}"), 600, function () use ($id) {
+            return Motorcycle::with([
+                'user',
+                'maintenances' => fn ($q) => $q->latest(),
+                'troubleshootingHistories' => fn ($q) => $q->latest(),
+            ])
+            ->withCount(['maintenances', 'troubleshootingHistories'])
+            ->find($id);
+        });
     }
 
     /**
@@ -89,6 +91,8 @@ class MotorcycleRepository
     public function update(Motorcycle $motorcycle, array $data): Motorcycle
     {
         $motorcycle->update($data);
+        Cache::forget($this->cacheKey("detail:{$motorcycle->id}"));
+
         return $motorcycle;
     }
 
@@ -97,7 +101,10 @@ class MotorcycleRepository
      */
     public function delete(Motorcycle $motorcycle): bool
     {
-        return $motorcycle->delete();
+        $result = $motorcycle->delete();
+        Cache::forget($this->cacheKey("detail:{$motorcycle->id}"));
+
+        return $result;
     }
 
     /**
@@ -105,11 +112,13 @@ class MotorcycleRepository
      */
     public function getByBrand(string $brand, int $limit = 10): array
     {
-        return Motorcycle::where('brand', $brand)
-            ->active()
-            ->limit($limit)
-            ->get()
-            ->toArray();
+        return Cache::remember($this->cacheKey("brand:{$brand}"), 3600, function () use ($brand, $limit) {
+            return Motorcycle::where('brand', $brand)
+                ->active()
+                ->limit($limit)
+                ->get()
+                ->toArray();
+        });
     }
 
     /**
