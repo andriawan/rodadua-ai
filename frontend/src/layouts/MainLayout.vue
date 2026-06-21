@@ -41,19 +41,19 @@ async function handleLogout() {
               <router-link
                 v-for="item in navigation"
                 :key="item.name"
+                v-slot="{ href, navigate, isActive }"
                 :to="item.href"
                 custom
-                v-slot="{ href, navigate, isActive }"
               >
                 <a
                   :href="href"
-                  @click="navigate"
                   :class="[
                     isActive
                       ? 'border-primary-500 text-primary-600 bg-primary-50/50'
                       : 'border-transparent text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900',
                     'inline-flex items-center px-3 py-2 rounded-md text-sm font-medium border-b-2 transition-all duration-200'
                   ]"
+                  @click="navigate"
                 >
                   {{ item.name }}
                 </a>
@@ -117,19 +117,19 @@ async function handleLogout() {
           <router-link
             v-for="item in navigation"
             :key="item.name"
+            v-slot="{ href, navigate, isActive }"
             :to="item.href"
             custom
-            v-slot="{ href, navigate, isActive }"
           >
             <a
               :href="href"
-              @click="navigate; isMobileMenuOpen = false"
               :class="[
                 isActive
                   ? 'bg-primary-50 border-primary-500 text-primary-700'
                   : 'border-transparent text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900',
                 'block pl-3 pr-4 py-2 border-l-4 text-base font-medium'
               ]"
+              @click="navigate; isMobileMenuOpen = false"
             >
               {{ item.name }}
             </a>

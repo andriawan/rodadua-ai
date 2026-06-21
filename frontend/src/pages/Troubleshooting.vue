@@ -132,7 +132,8 @@ async function handleAnalyze() {
                 <span class="text-lg">🤖</span>
                 <h3 class="font-extrabold text-neutral-900 text-lg">Hasil Analisa AI</h3>
               </div>
-              <span :class="[
+              <span
+:class="[
                 'px-2.5 py-0.5 text-xs font-semibold rounded-full border uppercase tracking-wider',
                 analysisResult.severity === 'critical' || analysisResult.severity === 'high' ? 'bg-danger-50 text-danger-700 border-danger-500/20' : 'bg-warning-50 text-warning-700 border-warning-500/20'
               ]">

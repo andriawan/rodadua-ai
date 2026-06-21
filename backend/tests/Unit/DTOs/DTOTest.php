@@ -10,6 +10,7 @@ use App\DTOs\MaintenanceDTO;
 use App\DTOs\TroubleshootDTO;
 use App\DTOs\UpdateMotorcycleDTO;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Tests\TestCase;
 
 class DTOTest extends TestCase
@@ -165,7 +166,7 @@ class DTOTest extends TestCase
             'REQUEST_URI' => '/api/v1/motorcycles/5/compare/10',
         ]);
         $request->setRouteResolver(function () use ($request) {
-            return (new \Illuminate\Routing\Route(['POST'], '/api/v1/motorcycles/{motorcycle}/compare/{comparedMotorcycle}', []))
+            return (new Route(['POST'], '/api/v1/motorcycles/{motorcycle}/compare/{comparedMotorcycle}', []))
                 ->bind($request);
         });
         $request->route()->setParameter('motorcycle', '5');

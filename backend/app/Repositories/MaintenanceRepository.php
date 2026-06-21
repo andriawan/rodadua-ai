@@ -68,6 +68,7 @@ class MaintenanceRepository
     public function update(Maintenance $maintenance, array $data): Maintenance
     {
         $maintenance->update($data);
+
         return $maintenance;
     }
 

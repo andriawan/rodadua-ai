@@ -4,6 +4,7 @@ namespace Tests\Unit\Repositories;
 
 use App\Models\Maintenance;
 use App\Models\Motorcycle;
+use App\Models\TroubleshootingHistory;
 use App\Models\User;
 use App\Models\Workshop;
 use App\Repositories\MaintenanceRepository;
@@ -113,7 +114,7 @@ class RepositoryTest extends TestCase
     public function test_troubleshooting_repository_get_by_motorcycle_id(): void
     {
         $motorcycle = $this->createMotorcycle($this->user);
-        \App\Models\TroubleshootingHistory::factory(2)->create([
+        TroubleshootingHistory::factory(2)->create([
             'motorcycle_id' => $motorcycle->id,
             'user_id' => $this->user->id,
         ]);

@@ -98,9 +98,9 @@ function handleWorkshopContact(ws: Workshop) {
                   class="flex items-center gap-2.5 text-sm text-neutral-700 cursor-pointer select-none"
                 >
                   <input
+                    v-model="selectedServices"
                     type="checkbox"
                     :value="service.value"
-                    v-model="selectedServices"
                     class="rounded text-primary-600 focus:ring-primary-500 h-4 w-4 border-neutral-300"
                   />
                   <span>{{ service.label }}</span>

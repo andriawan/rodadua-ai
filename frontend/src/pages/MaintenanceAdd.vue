@@ -76,7 +76,7 @@ function handleCancel() {
     <ErrorAlert v-if="error" :message="error" />
 
     <BaseCard padding="lg" class="bg-white border-neutral-200">
-      <form @submit.prevent="handleSubmit" class="flex flex-col gap-4">
+      <form class="flex flex-col gap-4" @submit.prevent="handleSubmit">
         <!-- Select Motorcycle -->
         <div class="flex flex-col gap-1.5">
           <label class="text-sm font-medium text-neutral-700">Motorcycle <span class="text-danger-500">*</span></label>

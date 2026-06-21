@@ -67,6 +67,7 @@ class SparePartRepository
     public function update(SparePart $sparePart, array $data): SparePart
     {
         $sparePart->update($data);
+
         return $sparePart;
     }
 

@@ -100,7 +100,7 @@ function handleSubmit() {
 </script>
 
 <template>
-  <form @submit.prevent="handleSubmit" class="flex flex-col gap-4">
+  <form class="flex flex-col gap-4" @submit.prevent="handleSubmit">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <BaseInput
         v-model="form.brand"

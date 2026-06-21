@@ -1,0 +1,11 @@
+parameters:
+    # Start at level 0 (safety net). Raise level incrementally:
+    # level 1 → 2 → 3 (target) → 6 (ideal)
+    level: 0
+    paths:
+        - app
+    excludePaths:
+        - tests
+        - database
+    reportUnmatchedIgnoredErrors: false
+    treatPhpDocTypesAsCertain: false

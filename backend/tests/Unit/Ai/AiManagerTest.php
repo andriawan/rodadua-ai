@@ -54,7 +54,7 @@ class AiManagerTest extends TestCase
             ->with('test prompt', ['key' => 'value'])
             ->andReturn('AI response');
 
-        $manager = new AiManager();
+        $manager = new AiManager;
         $reflection = new \ReflectionClass($manager);
         $property = $reflection->getProperty('provider');
         $property->setAccessible(true);
@@ -74,7 +74,7 @@ class AiManagerTest extends TestCase
             ->with('test prompt', ['brand', 'model'])
             ->andReturn($expected);
 
-        $manager = new AiManager();
+        $manager = new AiManager;
         $reflection = new \ReflectionClass($manager);
         $property = $reflection->getProperty('provider');
         $property->setAccessible(true);

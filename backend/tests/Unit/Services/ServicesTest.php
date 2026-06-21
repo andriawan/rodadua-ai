@@ -4,11 +4,13 @@ namespace Tests\Unit\Services;
 
 use App\DTOs\TroubleshootDTO;
 use App\Models\User;
+use App\Services\Ai\AiManager;
 use App\Services\AiLogService;
 use App\Services\ComparisonService;
 use App\Services\MaintenanceService;
 use App\Services\SpecificationService;
 use App\Services\TroubleshootingService;
+use Mockery\MockInterface;
 use Tests\TestCase;
 
 class ServicesTest extends TestCase
@@ -64,12 +66,12 @@ class ServicesTest extends TestCase
         $service = app(TroubleshootingService::class);
         $motorcycle = $this->createMotorcycle($this->user);
 
-        /** @var \Mockery\MockInterface|\App\Services\Ai\AiManager $aiMock */
-        $aiMock = \Mockery::mock(\App\Services\Ai\AiManager::class);
+        /** @var MockInterface|AiManager $aiMock */
+        $aiMock = \Mockery::mock(AiManager::class);
         $aiMock->shouldReceive('chat')
             ->once()
             ->andReturn('Diagnosa Awal: Kemungkinan aki lemah. **Tingkat Keparahan**: Rendah');
-        app()->instance(\App\Services\Ai\AiManager::class, $aiMock);
+        app()->instance(AiManager::class, $aiMock);
 
         // Re-resolve service with mocked AiManager
         $service = app(TroubleshootingService::class);
@@ -114,12 +116,12 @@ class ServicesTest extends TestCase
         $motorcycle = $this->createMotorcycle($this->user);
         $expectedResponse = '**Perawatan Rutin**: Ganti oli setiap 3000 km';
 
-        /** @var \Mockery\MockInterface|\App\Services\Ai\AiManager $aiMock */
-        $aiMock = \Mockery::mock(\App\Services\Ai\AiManager::class);
+        /** @var MockInterface|AiManager $aiMock */
+        $aiMock = \Mockery::mock(AiManager::class);
         $aiMock->shouldReceive('chat')
             ->once()
             ->andReturn($expectedResponse);
-        app()->instance(\App\Services\Ai\AiManager::class, $aiMock);
+        app()->instance(AiManager::class, $aiMock);
 
         $service = app(MaintenanceService::class);
         $result = $service->getRecommendations($motorcycle->id, $this->user->id);
@@ -133,12 +135,12 @@ class ServicesTest extends TestCase
     {
         $motorcycle = $this->createMotorcycle($this->user);
 
-        /** @var \Mockery\MockInterface|\App\Services\Ai\AiManager $aiMock */
-        $aiMock = \Mockery::mock(\App\Services\Ai\AiManager::class);
+        /** @var MockInterface|AiManager $aiMock */
+        $aiMock = \Mockery::mock(AiManager::class);
         $aiMock->shouldReceive('chat')
             ->once()
             ->andReturn('Berdasarkan riwayat, perawatan selanjutnya pada 5000 km');
-        app()->instance(\App\Services\Ai\AiManager::class, $aiMock);
+        app()->instance(AiManager::class, $aiMock);
 
         $service = app(MaintenanceService::class);
         $result = $service->predictNextMaintenance($motorcycle->id, $this->user->id);
@@ -154,12 +156,12 @@ class ServicesTest extends TestCase
         $motorcycleA = $this->createMotorcycle($this->user);
         $motorcycleB = $this->createMotorcycle($this->user);
 
-        /** @var \Mockery\MockInterface|\App\Services\Ai\AiManager $aiMock */
-        $aiMock = \Mockery::mock(\App\Services\Ai\AiManager::class);
+        /** @var MockInterface|AiManager $aiMock */
+        $aiMock = \Mockery::mock(AiManager::class);
         $aiMock->shouldReceive('chat')
             ->once()
             ->andReturn('**Perbedaan Utama**: Motor A lebih irit bahan bakar');
-        app()->instance(\App\Services\Ai\AiManager::class, $aiMock);
+        app()->instance(AiManager::class, $aiMock);
 
         $service = app(ComparisonService::class);
         $result = $service->compare(
@@ -189,12 +191,12 @@ class ServicesTest extends TestCase
             'color' => 'Hitam',
         ];
 
-        /** @var \Mockery\MockInterface|\App\Services\Ai\AiManager $aiMock */
-        $aiMock = \Mockery::mock(\App\Services\Ai\AiManager::class);
+        /** @var MockInterface|AiManager $aiMock */
+        $aiMock = \Mockery::mock(AiManager::class);
         $aiMock->shouldReceive('generateStructured')
             ->once()
             ->andReturn($expected);
-        app()->instance(\App\Services\Ai\AiManager::class, $aiMock);
+        app()->instance(AiManager::class, $aiMock);
 
         $service = app(SpecificationService::class);
         $result = $service->extractSpecs('Honda Vario 160 tahun 2024 warna hitam');
@@ -205,12 +207,12 @@ class ServicesTest extends TestCase
 
     public function test_specification_service_validate_specs(): void
     {
-        /** @var \Mockery\MockInterface|\App\Services\Ai\AiManager $aiMock */
-        $aiMock = \Mockery::mock(\App\Services\Ai\AiManager::class);
+        /** @var MockInterface|AiManager $aiMock */
+        $aiMock = \Mockery::mock(AiManager::class);
         $aiMock->shouldReceive('chat')
             ->once()
             ->andReturn('Spesifikasi terlihat konsisten untuk Honda Vario 160');
-        app()->instance(\App\Services\Ai\AiManager::class, $aiMock);
+        app()->instance(AiManager::class, $aiMock);
 
         $service = app(SpecificationService::class);
         $result = $service->validateSpecs([

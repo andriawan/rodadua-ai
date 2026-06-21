@@ -16,39 +16,39 @@ return new class extends Migration
     {
         Schema::create('spare_parts', function (Blueprint $table) {
             $table->id();
-            
+
             // Basic Information
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('part_number')->unique();
             $table->string('oem_number')->nullable();
-            
+
             // Classification
             $table->string('category'); // e.g., engine, transmission, brake
             $table->string('subcategory')->nullable();
             $table->string('brand')->nullable();
-            
+
             // Compatibility
             $table->json('compatible_motorcycles')->nullable();
             $table->json('compatible_years')->nullable();
-            
+
             // Pricing & Availability
             $table->decimal('retail_price', 10, 2)->nullable();
             $table->decimal('wholesale_price', 10, 2)->nullable();
             $table->integer('quantity_available')->default(0);
             $table->boolean('in_stock')->default(false);
-            
+
             // Supplier Information
             $table->string('supplier_name')->nullable();
             $table->string('supplier_code')->nullable();
-            
+
             // Meta
             $table->text('notes')->nullable();
             $table->integer('view_count')->default(0);
-            
+
             $table->timestamps();
             $table->softDeletes();
-            
+
             // Indexes
             $table->index('category');
             $table->index('part_number');

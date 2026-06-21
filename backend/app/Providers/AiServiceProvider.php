@@ -10,7 +10,7 @@ class AiServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(AiManager::class, function () {
-            return new AiManager();
+            return new AiManager;
         });
     }
 

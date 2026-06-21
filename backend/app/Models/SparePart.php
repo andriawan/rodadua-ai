@@ -59,6 +59,6 @@ class SparePart extends Model
     public function scopeSearchByPartNumber($query, $partNumber)
     {
         return $query->where('part_number', 'like', "%{$partNumber}%")
-                    ->orWhere('oem_number', 'like', "%{$partNumber}%");
+            ->orWhere('oem_number', 'like', "%{$partNumber}%");
     }
 }

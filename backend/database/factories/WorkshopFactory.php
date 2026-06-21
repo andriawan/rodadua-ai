@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Workshop;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Workshop>
+ * @extends Factory<Workshop>
  */
 class WorkshopFactory extends Factory
 {
@@ -26,11 +27,11 @@ class WorkshopFactory extends Factory
 
         return [
             'name' => $this->faker->randomElement([
-                'Bengkel ' . $this->faker->lastName(),
-                $this->faker->company() . ' Motor',
-                'Auto ' . $this->faker->lastName(),
-                $this->faker->lastName() . ' Racing Service',
-                'Mitra ' . $this->faker->lastName(),
+                'Bengkel '.$this->faker->lastName(),
+                $this->faker->company().' Motor',
+                'Auto '.$this->faker->lastName(),
+                $this->faker->lastName().' Racing Service',
+                'Mitra '.$this->faker->lastName(),
             ]),
             'description' => $this->faker->optional()->paragraph(),
             'phone' => $this->faker->phoneNumber(),

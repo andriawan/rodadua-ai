@@ -35,7 +35,7 @@ class AuthService
     {
         $user = User::where('email', $dto->email)->first();
 
-        if (!$user || !Hash::check($dto->password, $user->password)) {
+        if (! $user || ! Hash::check($dto->password, $user->password)) {
             return null;
         }
 

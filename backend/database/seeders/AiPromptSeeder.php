@@ -16,7 +16,7 @@ class AiPromptSeeder extends Seeder
                 'version' => 1,
                 'description' => 'Analyze motorcycle problem and symptoms, return diagnosis and solutions',
                 'is_active' => true,
-                'content' => <<<TXT
+                'content' => <<<'TXT'
 Anda adalah asisten perawatan motor Indonesia yang ahli. Seorang pengendara melaporkan masalah pada motornya:
 
 Motor: {{brand}} {{model}} ({{year}})
@@ -47,7 +47,7 @@ TXT
                 'version' => 1,
                 'description' => 'Generate personalized maintenance schedule for a motorcycle',
                 'is_active' => true,
-                'content' => <<<TXT
+                'content' => <<<'TXT'
 Anda adalah asisten perawatan motor Indonesia yang ahli. Buatkan jadwal perawatan yang dipersonalisasi untuk motor berikut:
 
 Motor: {{brand}} {{model}} ({{year}})
@@ -72,7 +72,7 @@ TXT
                 'version' => 1,
                 'description' => 'Predict next maintenance date/km based on history',
                 'is_active' => true,
-                'content' => <<<TXT
+                'content' => <<<'TXT'
 Anda adalah asisten perawatan motor Indonesia yang ahli. Berdasarkan riwayat perawatan berikut, prediksikan kapan perawatan selanjutnya:
 
 Motor: {{brand}} {{model}} ({{year}})
@@ -97,7 +97,7 @@ TXT
                 'version' => 1,
                 'description' => 'Compare two motorcycles across specifications and use cases',
                 'is_active' => true,
-                'content' => <<<TXT
+                'content' => <<<'TXT'
 Anda adalah asisten pembelian motor Indonesia yang ahli. Bandingkan dua motor berikut:
 
 Motor 1: {{brand1}} {{model1}} ({{year1}})
@@ -128,7 +128,7 @@ TXT
                 'version' => 1,
                 'description' => 'Extract structured specs from free-text motorcycle description',
                 'is_active' => true,
-                'content' => <<<TXT
+                'content' => <<<'TXT'
 Extract motorcycle specifications from the following text description. Return ONLY valid JSON with these fields (use null for unknown values):
 
 - brand (string)
@@ -151,7 +151,7 @@ TXT
                 'version' => 1,
                 'description' => 'Validate motorcycle spec consistency',
                 'is_active' => true,
-                'content' => <<<TXT
+                'content' => <<<'TXT'
 Validate the following motorcycle specifications for consistency and accuracy. Identify any potential issues.
 
 Specifications:

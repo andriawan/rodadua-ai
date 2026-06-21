@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Api;
 
-use App\Models\User;
 use Tests\TestCase;
 
 class AuthTest extends TestCase

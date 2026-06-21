@@ -44,7 +44,8 @@ const statusBadgeClasses = computed(() => {
 </script>
 
 <template>
-  <BaseCard padding="md" class="border-l-4" :class="[
+  <BaseCard
+padding="md" class="border-l-4" :class="[
     record.status === 'completed' ? 'border-l-success-500' : '',
     record.status === 'scheduled' ? 'border-l-info-500' : '',
     record.status === 'pending' ? 'border-l-warning-500' : '',

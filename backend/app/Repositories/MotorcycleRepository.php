@@ -38,8 +38,8 @@ class MotorcycleRepository
             $search = $filters['search'];
             $query->where(function ($q) use ($search) {
                 $q->where('brand', 'like', "%{$search}%")
-                  ->orWhere('model', 'like', "%{$search}%")
-                  ->orWhere('license_plate', 'like', "%{$search}%");
+                    ->orWhere('model', 'like', "%{$search}%")
+                    ->orWhere('license_plate', 'like', "%{$search}%");
             });
         }
 
@@ -57,8 +57,8 @@ class MotorcycleRepository
                 'maintenances' => fn ($q) => $q->latest(),
                 'troubleshootingHistories' => fn ($q) => $q->latest(),
             ])
-            ->withCount(['maintenances', 'troubleshootingHistories'])
-            ->find($id);
+                ->withCount(['maintenances', 'troubleshootingHistories'])
+                ->find($id);
         });
     }
 

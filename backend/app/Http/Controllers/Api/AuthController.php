@@ -48,7 +48,7 @@ class AuthController extends Controller
     {
         $result = $this->authService->login(LoginDTO::fromRequest($request));
 
-        if (!$result) {
+        if (! $result) {
             return response()->json([
                 'success' => false,
                 'message' => 'Invalid credentials',

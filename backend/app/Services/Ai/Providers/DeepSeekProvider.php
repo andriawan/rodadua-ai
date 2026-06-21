@@ -20,10 +20,10 @@ class DeepSeekProvider implements AiProviderInterface
     {
         $config = config('services.deepseek');
 
-        $this->client = (new Factory())
+        $this->client = (new Factory)
             ->withApiKey($config['api_key'] ?? '')
             ->withBaseUri($config['base_url'] ?? 'https://api.deepseek.com/v1')
-            ->withHttpHeader('Authorization', 'Bearer ' . ($config['api_key'] ?? ''))
+            ->withHttpHeader('Authorization', 'Bearer '.($config['api_key'] ?? ''))
             ->make();
 
         $this->model = $config['model'] ?? 'deepseek-chat';

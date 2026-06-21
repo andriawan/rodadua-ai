@@ -3,6 +3,7 @@
 namespace Tests\Feature\Api;
 
 use App\Models\User;
+use App\Models\Workshop;
 use App\Services\Ai\AiManager;
 use Tests\TestCase;
 
@@ -136,7 +137,7 @@ class AiEndpointsTest extends TestCase
 
     public function test_workshop_search_by_city(): void
     {
-        \App\Models\Workshop::factory(2)->create(['city' => 'Jakarta', 'rating' => 4.5]);
+        Workshop::factory(2)->create(['city' => 'Jakarta', 'rating' => 4.5]);
 
         $response = $this->getJson('/api/v1/workshops/search?city=Jakarta');
 
@@ -151,7 +152,7 @@ class AiEndpointsTest extends TestCase
 
     public function test_workshop_show(): void
     {
-        $workshop = \App\Models\Workshop::factory()->create();
+        $workshop = Workshop::factory()->create();
 
         $response = $this->getJson("/api/v1/workshops/{$workshop->id}");
 

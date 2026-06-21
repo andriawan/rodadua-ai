@@ -36,7 +36,7 @@ async function handleLogin() {
 
     <ErrorAlert v-if="error || formError" :message="(error || formError) as string" />
 
-    <form @submit.prevent="handleLogin" class="flex flex-col gap-4">
+    <form class="flex flex-col gap-4" @submit.prevent="handleLogin">
       <BaseInput
         v-model="email"
         label="Email"

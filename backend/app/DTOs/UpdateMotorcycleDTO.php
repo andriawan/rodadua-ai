@@ -57,6 +57,6 @@ class UpdateMotorcycleDTO
             'odometer_km' => $this->odometer_km,
             'notes' => $this->notes,
             'status' => $this->status,
-        ], fn ($value) => !is_null($value));
+        ], fn ($value) => ! is_null($value));
     }
 }

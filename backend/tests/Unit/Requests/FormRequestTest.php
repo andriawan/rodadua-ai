@@ -2,8 +2,6 @@
 
 namespace Tests\Unit\Requests;
 
-use App\Models\Motorcycle;
-use App\Models\User;
 use Tests\TestCase;
 
 class FormRequestTest extends TestCase

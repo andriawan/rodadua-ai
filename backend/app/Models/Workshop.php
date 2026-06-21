@@ -55,8 +55,8 @@ class Workshop extends Model
     {
         // Simple distance calculation (more precise would use haversine formula)
         $latOffset = $radiusKm / 111; // Rough conversion
-        
+
         return $query->whereBetween('latitude', [$latitude - $latOffset, $latitude + $latOffset])
-                    ->whereBetween('longitude', [$longitude - $latOffset, $longitude + $latOffset]);
+            ->whereBetween('longitude', [$longitude - $latOffset, $longitude + $latOffset]);
     }
 }

@@ -16,9 +16,9 @@ class UpdateMotorcycleRequest extends FormRequest
         return [
             'brand' => ['nullable', 'string', 'max:255'],
             'model' => ['nullable', 'string', 'max:255'],
-            'year' => ['nullable', 'integer', 'min:1900', 'max:' . date('Y')],
+            'year' => ['nullable', 'integer', 'min:1900', 'max:'.date('Y')],
             'color' => ['nullable', 'string', 'max:255'],
-            'license_plate' => ['nullable', 'string', 'max:255', 'unique:motorcycles,license_plate,' . $this->route('motorcycle')->id],
+            'license_plate' => ['nullable', 'string', 'max:255', 'unique:motorcycles,license_plate,'.$this->route('motorcycle')->id],
             'engine_cc' => ['nullable', 'integer', 'min:0'],
             'engine_type' => ['nullable', 'string', 'max:255'],
             'transmission' => ['nullable', 'string', 'in:automatic,manual,cvt'],

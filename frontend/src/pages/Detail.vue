@@ -114,7 +114,7 @@ function goBack() {
             </div>
           </div>
 
-          <div class="pt-6" v-if="currentMotorcycle.notes">
+          <div v-if="currentMotorcycle.notes" class="pt-6">
             <h4 class="text-xs font-bold text-neutral-400 tracking-wider uppercase mb-2">Catatan Tambahan</h4>
             <p class="text-neutral-600 text-sm leading-relaxed">{{ currentMotorcycle.notes }}</p>
           </div>

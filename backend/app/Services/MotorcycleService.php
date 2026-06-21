@@ -57,7 +57,7 @@ class MotorcycleService
     public function toggleFavorite(Motorcycle $motorcycle): Motorcycle
     {
         return $this->repository->update($motorcycle, [
-            'is_favorite' => !$motorcycle->is_favorite,
+            'is_favorite' => ! $motorcycle->is_favorite,
         ]);
     }
 

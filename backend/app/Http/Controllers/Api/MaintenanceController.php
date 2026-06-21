@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreMaintenanceRequest;
+use App\Models\Maintenance;
 use App\Services\AiLogService;
 use App\Services\MaintenanceService;
 use Illuminate\Http\JsonResponse;
@@ -79,12 +81,12 @@ class MaintenanceController extends Controller
     /**
      * Log a new maintenance record.
      */
-    public function store(\App\Http\Requests\StoreMaintenanceRequest $request): JsonResponse
+    public function store(StoreMaintenanceRequest $request): JsonResponse
     {
         $data = $request->validated();
         $data['user_id'] = $request->user()->id;
 
-        $maintenance = \App\Models\Maintenance::create($data);
+        $maintenance = Maintenance::create($data);
 
         return response()->json([
             'success' => true,

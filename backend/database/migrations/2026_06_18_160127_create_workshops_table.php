@@ -16,14 +16,14 @@ return new class extends Migration
     {
         Schema::create('workshops', function (Blueprint $table) {
             $table->id();
-            
+
             // Basic Information
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('phone');
             $table->string('email')->nullable();
             $table->string('website')->nullable();
-            
+
             // Location
             $table->string('address');
             $table->string('city');
@@ -31,22 +31,22 @@ return new class extends Migration
             $table->string('postal_code')->nullable();
             $table->decimal('latitude', 11, 8)->nullable();
             $table->decimal('longitude', 11, 8)->nullable();
-            
+
             // Ratings & Reviews
             $table->decimal('rating', 3, 2)->default(0);
             $table->integer('total_reviews')->default(0);
             $table->integer('specialist_motorcycle_count')->default(0);
-            
+
             // Operating Hours
             $table->string('operating_hours')->nullable();
             $table->boolean('is_open_weekends')->default(false);
-            
+
             // Services
             $table->text('services_offered')->nullable(); // JSON or text
-            
+
             $table->timestamps();
             $table->softDeletes();
-            
+
             // Indexes
             $table->index('city');
             $table->index('rating');

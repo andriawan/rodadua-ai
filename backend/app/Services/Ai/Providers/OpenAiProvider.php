@@ -20,7 +20,7 @@ class OpenAiProvider implements AiProviderInterface
     {
         $config = config('services.openai');
 
-        $this->client = (new Factory())
+        $this->client = (new Factory)
             ->withApiKey($config['api_key'] ?? '')
             ->withOrganization($config['organization'] ?? '')
             ->make();

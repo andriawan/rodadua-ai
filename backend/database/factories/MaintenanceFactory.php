@@ -2,12 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\Maintenance;
 use App\Models\Motorcycle;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Maintenance>
+ * @extends Factory<Maintenance>
  */
 class MaintenanceFactory extends Factory
 {

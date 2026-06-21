@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\DTOs\TroubleshootDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTroubleshootRequest;
+use App\Models\TroubleshootingHistory;
 use App\Services\AiLogService;
 use App\Services\TroubleshootingService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class TroubleshootingController extends Controller
 {
@@ -72,11 +74,11 @@ class TroubleshootingController extends Controller
     /**
      * Get troubleshooting history for a motorcycle.
      */
-    public function history(int $motorcycleId, \Illuminate\Http\Request $request): JsonResponse
+    public function history(int $motorcycleId, Request $request): JsonResponse
     {
         $user = $request->user();
 
-        $history = \App\Models\TroubleshootingHistory::where('motorcycle_id', $motorcycleId)
+        $history = TroubleshootingHistory::where('motorcycle_id', $motorcycleId)
             ->where('user_id', $user->id)
             ->latest()
             ->paginate(10);

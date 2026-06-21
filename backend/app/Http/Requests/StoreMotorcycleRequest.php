@@ -16,7 +16,7 @@ class StoreMotorcycleRequest extends FormRequest
         return [
             'brand' => ['required', 'string', 'max:255'],
             'model' => ['required', 'string', 'max:255'],
-            'year' => ['required', 'integer', 'min:1900', 'max:' . date('Y')],
+            'year' => ['required', 'integer', 'min:1900', 'max:'.date('Y')],
             'color' => ['nullable', 'string', 'max:255'],
             'license_plate' => ['nullable', 'string', 'max:255', 'unique:motorcycles'],
             'engine_cc' => ['nullable', 'integer', 'min:0'],

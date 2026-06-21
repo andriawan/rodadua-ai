@@ -42,7 +42,7 @@ async function handleRegister() {
 
     <ErrorAlert v-if="error || formError" :message="(error || formError) as string" />
 
-    <form @submit.prevent="handleRegister" class="flex flex-col gap-4">
+    <form class="flex flex-col gap-4" @submit.prevent="handleRegister">
       <BaseInput
         v-model="name"
         label="Nama Lengkap"

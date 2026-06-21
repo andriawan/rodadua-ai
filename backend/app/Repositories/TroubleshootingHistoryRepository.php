@@ -68,6 +68,7 @@ class TroubleshootingHistoryRepository
     public function update(TroubleshootingHistory $history, array $data): TroubleshootingHistory
     {
         $history->update($data);
+
         return $history;
     }
 
