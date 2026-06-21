@@ -3,14 +3,14 @@
 namespace App\Repositories;
 
 use App\Models\TroubleshootingHistory;
-use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class TroubleshootingHistoryRepository
 {
     /**
      * Get troubleshooting history for a motorcycle
      */
-    public function getByMotorcycleId(int $motorcycleId, array $filters = []): Paginator
+    public function getByMotorcycleId(int $motorcycleId, array $filters = []): LengthAwarePaginator
     {
         $query = TroubleshootingHistory::query()
             ->with(['motorcycle', 'user'])

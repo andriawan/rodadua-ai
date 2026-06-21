@@ -3,14 +3,14 @@
 namespace App\Repositories;
 
 use App\Models\Motorcycle;
-use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class MotorcycleRepository
 {
     /**
      * Get all motorcycles for a user with eager loaded relationships
      */
-    public function getAllByUser(int $userId, array $filters = []): Paginator
+    public function getAllByUser(int $userId, array $filters = []): LengthAwarePaginator
     {
         $query = Motorcycle::query()
             ->with(['maintenances', 'troubleshootingHistories'])

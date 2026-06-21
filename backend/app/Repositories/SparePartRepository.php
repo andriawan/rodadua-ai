@@ -3,14 +3,14 @@
 namespace App\Repositories;
 
 use App\Models\SparePart;
-use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class SparePartRepository
 {
     /**
      * Get all spare parts with filters
      */
-    public function getAll(array $filters = []): Paginator
+    public function getAll(array $filters = []): LengthAwarePaginator
     {
         $query = SparePart::query();
 

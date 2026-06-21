@@ -3,14 +3,14 @@
 namespace App\Repositories;
 
 use App\Models\Workshop;
-use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class WorkshopRepository
 {
     /**
      * Get all workshops with filters
      */
-    public function getAll(array $filters = []): Paginator
+    public function getAll(array $filters = []): LengthAwarePaginator
     {
         $query = Workshop::query();
 

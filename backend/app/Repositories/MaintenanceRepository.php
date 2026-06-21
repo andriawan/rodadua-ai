@@ -3,14 +3,14 @@
 namespace App\Repositories;
 
 use App\Models\Maintenance;
-use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class MaintenanceRepository
 {
     /**
      * Get all maintenances for a motorcycle
      */
-    public function getByMotorcycleId(int $motorcycleId, array $filters = []): Paginator
+    public function getByMotorcycleId(int $motorcycleId, array $filters = []): LengthAwarePaginator
     {
         $query = Maintenance::query()
             ->with(['motorcycle', 'user'])

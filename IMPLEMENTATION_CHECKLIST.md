@@ -465,6 +465,152 @@
 
 ---
 
+## 💰 Phase 10: Revenue Strategy
+ 
+> rodaduaAI uses a freemium model combined with B2B workshop partnerships, built for the Indonesian motorcycle market. The goal: large free user base → convert high-intent users to paid tiers + recurring B2B income from local bengkel.
+ 
+### 10.1 Freemium Tier Structure
+ 
+| Feature | Free | Plus | Pro |
+|---|---|---|---|
+| AI chat / day | 10–20 messages | Unlimited | Unlimited |
+| Vehicles registered | Up to 5 | Up to 20 | Unlimited |
+| Troubleshooting history | Last 30 days | Full history | Full history |
+| Maintenance recommendations | Basic | Advanced + schedule | Advanced + schedule |
+| Motorcycle comparison | 2 at a time | Up to 5 | Up to 10 |
+| Workshop finder | Search only | Search + reviews | Search + priority booking |
+| AI queue priority | Standard | Priority | Dedicated |
+| Ads | Yes | No | No |
+| Export (PDF/CSV) | No | Yes | Yes |
+| API access | No | No | Yes |
+ 
+---
+ 
+### 10.2 Subscription Plans
+ 
+#### Free Plan
+- [ ] 10–20 AI chat messages per day (resets midnight WIB via Redis job)
+- [ ] Max 5 vehicles registered
+- [ ] Basic maintenance reminders
+- [ ] Ad-supported
+#### Plus Plan — Rp 29.000–49.000 / month
+- [ ] Unlimited AI chat
+- [ ] Up to 20 vehicles
+- [ ] Full troubleshooting & maintenance history
+- [ ] Advanced AI recommendations with service scheduling
+- [ ] No ads, priority AI queue
+- [ ] PDF/CSV data export
+#### Pro Plan — Rp 89.000–149.000 / month
+- [ ] Everything in Plus
+- [ ] Unlimited vehicle registrations
+- [ ] API access (for fleet managers, dealerships)
+- [ ] Up to 10 simultaneous motorcycle comparisons
+- [ ] Dedicated AI queue + priority support
+**Implementation checklist:**
+- [ ] Design tier permission matrix
+- [ ] Implement per-user daily AI message counter in Redis
+- [ ] Midnight quota reset job (Laravel Scheduler)
+- [ ] Paywall UI components (upgrade prompts, limit warnings)
+- [ ] Integrate Midtrans / Xendit payment gateway (IDR)
+- [ ] Subscription lifecycle management (create, cancel, upgrade, downgrade)
+- [ ] Webhook handling for payment events
+- [ ] 7-day free Plus trial on signup
+---
+ 
+### 10.3 B2B Workshop Partnership Program
+ 
+Partner with local bengkel across Indonesia for referral and lead generation revenue.
+ 
+**How it works:**
+- Users find nearby workshops via the Workshop Finder
+- Partnered workshops get a verified badge, higher search ranking, and a direct booking button
+- rodaduaAI earns a monthly SaaS fee + per-booking commission from each partner
+- Workshops get a business dashboard for bookings, reviews, and customer history
+#### Workshop Partner Tiers
+ 
+| Tier | Monthly Fee | Benefits |
+|---|---|---|
+| Basic | Rp 99.000 | Verified badge, basic listing, appear in search |
+| Standard | Rp 249.000 | Priority ranking, booking button, reviews, analytics |
+| Premium | Rp 499.000 | Top placement, push notifications to nearby users, monthly report, API integration |
+ 
+**Additional workshop revenue:**
+- Per-booking commission: Rp 5.000–15.000 per confirmed appointment
+- Promoted listing: workshops bid for top placement in their area
+- Spare parts inventory: workshops list parts, users buy via app (marketplace commission)
+**Implementation checklist:**
+- [ ] Workshop registration & onboarding flow
+- [ ] Workshop business dashboard (bookings, reviews, analytics)
+- [ ] Verified partner badge system
+- [ ] Ranking algorithm with partner tier weighting
+- [ ] Booking/appointment system with confirmation flow
+- [ ] Commission tracking and automated invoicing
+- [ ] Workshop performance analytics
+- [ ] Partner contract & agreement management
+---
+ 
+### 10.4 Additional Revenue Streams
+ 
+#### Spare Parts Marketplace Commission
+- [ ] Allow spare parts sellers to list inventory on the platform
+- [ ] Earn 3–8% commission per transaction
+- [ ] AI recommends specific parts based on model and diagnosed issues
+- [ ] Integrate with Tokopedia/Shopee API for expanded catalog
+#### In-App Advertising (Free Tier Only)
+- [ ] Show motorcycle-relevant ads to free users only (helmet brands, lubricants, tires)
+- [ ] Google AdMob or in-house ad server
+- [ ] Strict category filter — motorcycle-related ads only
+#### B2B Data Insights
+- [ ] Sell anonymized, aggregated market data to motorcycle manufacturers
+- [ ] Common breakdown patterns by model/year/region
+- [ ] Maintenance trend reports for dealership networks
+- [ ] Quarterly industry reports (Rp 5–20 juta per report)
+> ⚠️ Requires explicit user consent and full anonymization before any data sale. Legal review mandatory.
+ 
+#### Dealership & Manufacturer Partnerships
+- [ ] Honda, Yamaha, Suzuki, Kawasaki dealer integrations
+- [ ] Sponsored recommendations ("Your Honda Beat needs service — book at authorized dealer")
+- [ ] New model promotion placements in comparison feature
+- [ ] Annual partnership contracts (Rp 50–200 juta / brand)
+#### Premium AI Add-ons (Pay-per-use)
+- [ ] Photo diagnosis: upload engine photo, AI identifies issues — Rp 5.000/scan
+- [ ] Voice troubleshooting: describe problem via voice, get AI diagnosis
+- [ ] Pre-purchase inspection report: AI analysis before buying a used motorcycle
+---
+ 
+### 10.5 Revenue Projections (Conservative)
+ 
+| Revenue Stream | Year 1 | Year 2 | Notes |
+|---|---|---|---|
+| Plus subscriptions | Rp 50 juta | Rp 250 juta | ~2% conversion of free users |
+| Pro subscriptions | Rp 20 juta | Rp 100 juta | Fleet owners, power users |
+| Workshop partnerships | Rp 30 juta | Rp 200 juta | 100 partners Y1 → 500 Y2 |
+| In-app ads | Rp 15 juta | Rp 50 juta | Free tier only |
+| Marketplace commissions | Rp 10 juta | Rp 80 juta | Parts & bookings |
+| B2B data/partnerships | — | Rp 100 juta | Requires scale first |
+| **TOTAL** | **~Rp 125 juta** | **~Rp 780 juta** | Conservative estimate |
+ 
+---
+ 
+### 10.6 Monetization Implementation Checklist
+- [ ] Design and implement usage limit middleware (AI quota per tier)
+- [ ] Build subscription management system
+- [ ] Integrate Midtrans or Xendit payment gateway
+- [ ] Upgrade/downgrade flow with prorated billing
+- [ ] 7-day free Plus trial on registration
+- [ ] Workshop partner portal & dashboard
+- [ ] Verified badge and ranking system
+- [ ] Booking and commission tracking system
+- [ ] Ad serving for free tier users
+- [ ] Marketplace commission tracking
+- [ ] Workshop partnership agreement template
+- [ ] Internal revenue dashboard (MRR, churn, LTV)
+- [ ] Subscription analytics
+- [ ] Terms of service & privacy policy covering data usage
+- [ ] User consent flows for data usage
+
+---
+
 ## 🎯 Definition of Done Checklist
 
 For **EVERY** feature implementation:
