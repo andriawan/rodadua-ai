@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
+        // Seed AI prompts (versioned, stored in DB, never hardcoded in services)
+        $this->call(AiPromptSeeder::class);
+
         // Create admin user
         $admin = User::factory()->create([
             'name' => 'Admin',

@@ -35,4 +35,25 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | AI Provider Configuration
+    |--------------------------------------------------------------------------
+    */
+    'openai' => [
+        'api_key' => env('OPENAI_API_KEY'),
+        'organization' => env('OPENAI_ORGANIZATION'),
+        'model' => env('OPENAI_MODEL', 'gpt-4o-mini'),
+        'max_tokens' => (int) env('OPENAI_MAX_TOKENS', 2000),
+        'temperature' => (float) env('OPENAI_TEMPERATURE', 0.7),
+    ],
+
+    'deepseek' => [
+        'api_key' => env('DEEPSEEK_API_KEY'),
+        'base_url' => env('DEEPSEEK_BASE_URL', 'https://api.deepseek.com/v1'),
+        'model' => env('DEEPSEEK_MODEL', 'deepseek-chat'),
+        'max_tokens' => (int) env('DEEPSEEK_MAX_TOKENS', 2000),
+        'temperature' => (float) env('DEEPSEEK_TEMPERATURE', 0.7),
+    ],
+
 ];
